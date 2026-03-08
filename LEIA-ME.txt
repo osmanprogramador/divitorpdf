@@ -1,0 +1,129 @@
+╔══════════════════════════════════════════════════════════════╗
+║                    DivitorPDF v1.0                          ║
+║             Separador de Contracheques por Nome             ║
+╚══════════════════════════════════════════════════════════════╝
+
+══════════════════════════════════════════════════════════════
+  O QUE FAZ
+══════════════════════════════════════════════════════════════
+
+O DivitorPDF divide um arquivo PDF que contém vários contracheques
+(um por página) em arquivos individuais, renomeando cada arquivo
+automaticamente com o nome do funcionário encontrado na página.
+
+Exemplo:
+   ENTRADA: contracheques_fevereiro.pdf (10 páginas)
+   SAÍDA:   Ana Beatriz Souza.pdf
+            Bruno Henrique Lima.pdf
+            Carla Vitória Santos.pdf
+            ... (um PDF por funcionário)
+
+
+══════════════════════════════════════════════════════════════
+  COMO USAR
+══════════════════════════════════════════════════════════════
+
+1. Abra o programa (execute main.py)
+
+2. SELECIONAR PDF
+   - Clique na área "Clique ou arraste um PDF aqui"
+   - Ou arraste o arquivo PDF direto para a janela
+
+3. PASTA DE SAÍDA
+   - O programa sugere automaticamente uma pasta "Contracheques_Separados"
+     dentro da mesma pasta do PDF original
+   - Você pode alterar clicando em "Selecionar"
+
+4. DIVIDIR
+   - Clique no botão "DIVIDIR PDF"
+   - Acompanhe o progresso pela barra e pelo log de atividade
+   - Ao finalizar, um painel de resultado aparece com as estatísticas
+
+5. ABRIR PASTA
+   - Após o processamento, clique em "Abrir Pasta de Saída" para
+     ver os arquivos gerados
+
+
+══════════════════════════════════════════════════════════════
+  COMO IDENTIFICA O NOME DO FUNCIONÁRIO
+══════════════════════════════════════════════════════════════
+
+O programa lê o texto de cada página e procura pelos seguintes
+rótulos (labels) no conteúdo:
+
+   • Func.:  012437 - NOME DO FUNCIONÁRIO
+   • Func.:  NOME DO FUNCIONÁRIO
+   • Funcionário: 012437 - NOME
+   • Funcionário: NOME
+   • Nome: NOME
+   • Nome do Funcionário: NOME
+   • Empregado: NOME
+   • Colaborador: NOME
+   • Trabalhador: NOME
+   • Servidor: NOME
+
+Se nenhum desses rótulos for encontrado na página, o arquivo
+será salvo como "Pagina_001.pdf", "Pagina_002.pdf", etc.
+
+
+══════════════════════════════════════════════════════════════
+  LIMITES
+══════════════════════════════════════════════════════════════
+
+• MÁXIMO DE PÁGINAS:
+  Não há limite fixo de páginas. O programa processa PDFs de
+  qualquer tamanho. Arquivos muito grandes (milhares de páginas)
+  podem levar mais tempo, mas funcionam normalmente.
+
+• TAMANHO DO ARQUIVO:
+  Depende da memória RAM disponível no seu computador. Para a
+  maioria dos casos (até 500 páginas), funciona sem problemas.
+
+
+══════════════════════════════════════════════════════════════
+  LIMITAÇÕES
+══════════════════════════════════════════════════════════════
+
+1. PDF PRECISA TER TEXTO SELECIONÁVEL
+   O programa NÃO funciona com PDFs que são apenas imagens
+   escaneadas. O contracheque precisa ter texto que possa
+   ser selecionado/copiado. Se o PDF foi gerado por um sistema
+   (folha de pagamento digital), funcionará normalmente.
+
+2. RÓTULO RECONHECIDO
+   O nome do funcionário só é identificado se estiver precedido
+   por um dos rótulos listados acima (Func.:, Funcionário:, etc).
+   Outros formatos de contracheque podem não ser reconhecidos.
+
+3. CARACTERES ESPECIAIS
+   Caracteres não permitidos em nomes de arquivo do Windows
+   (como < > : " / \ | ? *) são removidos automaticamente.
+
+4. NOMES DUPLICADOS
+   Se dois funcionários tiverem o mesmo nome, o programa
+   adiciona um número ao final: "João Silva.pdf",
+   "João Silva (2).pdf", etc.
+
+5. IDIOMA
+   O programa foi projetado para contracheques em português.
+   Outros idiomas podem não ser reconhecidos.
+
+
+══════════════════════════════════════════════════════════════
+  REQUISITOS DO SISTEMA
+══════════════════════════════════════════════════════════════
+
+• Windows 10 ou superior
+• Python 3.10+
+• Bibliotecas: PyPDF2, pdfplumber, customtkinter
+
+
+══════════════════════════════════════════════════════════════
+  SUPORTE
+══════════════════════════════════════════════════════════════
+
+Se o programa não identificar o nome em algum tipo de
+contracheque, verifique o "Log de Atividade" na janela.
+Quando um nome não é encontrado, o log mostra o texto que
+foi extraído da página, facilitando o diagnóstico.
+
